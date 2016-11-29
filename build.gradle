@@ -16,16 +16,6 @@ apply plugin: 'spring-boot'
 
 sourceCompatibility = 1.8
 
-sourceSets	{
-    main
-            {
-                resources
-                        {
-                            exclude '**/application.yml'
-                        }
-            }
-}
-
 war {
 
     baseName = 'plt'
