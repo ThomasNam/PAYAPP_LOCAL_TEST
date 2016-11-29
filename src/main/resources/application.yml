@@ -1,2 +1,32 @@
 server:
   port: 20001
+
+spring:
+  mvc:
+    favicon:
+      enabled: false
+
+  jpa:
+    database: H2
+    show-sql: false
+
+    properties:
+      hibernate:
+        current_session_context_class: org.springframework.orm.hibernate4.SpringSessionContext
+
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        strategy: org.hibernate.cfg.EJB3NamingStrategy
+
+  datasource:
+    url: jdbc:h2:file:pl
+
+  http:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+payapp:
+  url: http://localhost:20001/
+  name: 로컬페이앱

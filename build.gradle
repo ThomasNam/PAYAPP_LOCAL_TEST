@@ -3,16 +3,23 @@ buildscript {
         jcenter()
         maven { url "http://repo.spring.io/snapshot" }
         maven { url "http://repo.spring.io/milestone" }
+        maven { url 'http://repo.spring.io/plugins-release' }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+        classpath 'org.springframework.build.gradle:propdeps-plugin:0.0.7'
+    }
+    ext {
+        snippetsDir = file('build/generated-snippets')
     }
 }
 
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'idea'
+apply plugin: 'propdeps'
 apply plugin: 'spring-boot'
+apply plugin: 'propdeps-idea'
 
 sourceCompatibility = 1.8
 
@@ -60,6 +67,10 @@ dependencies {
     compile("com.vaadin:vaadin-push:7.7.3")
 
     compile 'org.apache.httpcomponents:httpclient:4.4.1'
+
+    compile("org.springframework.boot:spring-boot-devtools")
+
+    optional "org.springframework.boot:spring-boot-configuration-processor"
 
     compile("org.vaadin:viritin:1.58")
     compile("org.vaadin.teemu:switch:2.0.3")
