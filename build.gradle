@@ -1,0 +1,92 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+apply plugin: 'spring-boot'
+
+sourceCompatibility = 1.8
+
+sourceSets	{
+    main
+            {
+                resources
+                        {
+                            exclude '**/application.yml'
+                        }
+            }
+}
+
+war {
+
+    baseName = 'plt'
+    version = '0.0.1-SNAPSHOT'
+}
+
+
+repositories {
+    jcenter()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+    maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
+    maven { url "http://vaadin.com/nexus/content/repositories/vaadin-addons/" }
+    maven { url "http://oss.sonatype.org/content/repositories/vaadin-snapshots/" }
+    mavenCentral()
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'com.vaadin:vaadin-bom:7.7.3'
+    }
+}
+
+dependencies {
+
+    compile("org.springframework.boot:spring-boot-starter-web")
+    compile("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    compile "org.projectlombok:lombok"
+    compile("org.springframework.boot:spring-boot-devtools")
+
+
+    compile 'org.webjars.bower:github-com-twbs-bootstrap:3.3.4'
+    compile 'org.webjars.bower:jquery:3.1.1'
+
+    compile("javax.cache:cache-api")
+    compile("org.ehcache:ehcache")
+
+    compile("com.vaadin:vaadin-spring-boot:1.0.2")
+    compile("com.vaadin:vaadin-themes:7.7.3")
+    compile("com.vaadin:vaadin-client-compiled:7.7.3")
+    compile("com.vaadin:vaadin-push:7.7.3")
+
+    compile 'org.apache.httpcomponents:httpclient:4.4.1'
+
+    compile("org.vaadin:viritin:1.58")
+    compile("org.vaadin.teemu:switch:2.0.3")
+
+    compile("org.vaadin.icons:vaadin-icons:1.0.1")
+    compile("org.vaadin.spring.addons:vaadin-spring-addon-eventbus:0.0.7.RELEASE")
+    compile("org.vaadin.spring.addons:vaadin-spring-addon-sidebar:0.0.7.RELEASE")
+
+    compile("org.vaadin.spring.extensions:vaadin-spring-ext-core:0.0.7.RELEASE")
+    compile("org.vaadin.spring.extensions:vaadin-spring-ext-boot:0.0.7.RELEASE")
+
+    compile("com.h2database:h2")
+    // runtime("mysql:mysql-connector-java:5.1.39")
+    // runtime("mysql:mysql-connector-java")
+
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
