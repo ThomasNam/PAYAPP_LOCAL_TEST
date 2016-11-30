@@ -40,4 +40,9 @@ public class PayList extends PayListBase
 	private int ostate;
 
 	private Date regDate;
+
+	public String getStateStr ()
+	{
+		return "뭐하는 상태임";
+	}
 }

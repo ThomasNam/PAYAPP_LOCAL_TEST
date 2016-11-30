@@ -78,8 +78,8 @@ public class MainUI extends UI
 		final Table table = new Table();
 		table.setSizeFull();
 		table.setContainerDataSource(new BeanItemContainer<> (PayList.class, users));
-		table.setVisibleColumns("no", "goodName", "goodPrice", "sellerUserID", "memPhone", "regDate");
-		table.setColumnHeaders("no", "상품명", "상품가격", "sellerUserID", "memPhone", "등록일");
+		table.setVisibleColumns("no", "goodName", "goodPrice", "sellerUserID", "memPhone", "regDate", "stateStr");
+		table.setColumnHeaders("no", "상품명", "상품가격", "sellerUserID", "memPhone", "등록일", "상태스트링");
 		return table;
 	}
 
