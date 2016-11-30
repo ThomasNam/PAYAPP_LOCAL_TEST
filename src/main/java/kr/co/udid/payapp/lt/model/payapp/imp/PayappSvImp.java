@@ -1,5 +1,7 @@
 package kr.co.udid.payapp.lt.model.payapp.imp;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -74,5 +76,17 @@ public class PayappSvImp implements PayappSv
 		url = SecureRandomUtil.getKey (6);
 
 		return url;
+	}
+
+	@Override
+	public Page<PayList> findAll (Pageable page)
+	{
+		return payListRepository.findAll (page);
+	}
+
+	@Override
+	public long getCount ()
+	{
+		return payListRepository.count ();
 	}
 }

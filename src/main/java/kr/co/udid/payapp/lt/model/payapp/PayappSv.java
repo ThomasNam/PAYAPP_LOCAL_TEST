@@ -1,6 +1,10 @@
 package kr.co.udid.payapp.lt.model.payapp;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import kr.co.udid.payapp.lt.model.payapp.data.PayappRequestResult;
+import kr.co.udid.payapp.lt.model.payapp.domain.PayList;
 import kr.co.udid.payapp.lt.model.payapp.domain.PayListBase;
 
 /**
@@ -14,4 +18,8 @@ public interface PayappSv
 	 * @return
 	 */
 	PayappRequestResult request (PayListBase payListBase);
+
+	Page<PayList> findAll (Pageable page);
+
+	long getCount ();
 }
