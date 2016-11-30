@@ -1,5 +1,7 @@
 package kr.co.udid.payapp.lt.model.payapp.domain;
 
+import javax.persistence.MappedSuperclass;
+
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -8,6 +10,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors (chain = true)
+@MappedSuperclass
 public class PayListBase
 {
 	/**
