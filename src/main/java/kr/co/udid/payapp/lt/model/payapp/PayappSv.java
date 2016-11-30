@@ -21,5 +21,17 @@ public interface PayappSv
 
 	Page<PayList> findAll (Pageable page);
 
-	long getCount ();
+	/**
+	 * 카드 결제 완료
+	 * @param no
+	 * @return
+	 */
+	boolean cardAccountComplete (long no);
+
+	/**
+	 * 결제 취소
+	 * @param no
+	 * @return
+	 */
+	boolean cancelAccount (long no);
 }

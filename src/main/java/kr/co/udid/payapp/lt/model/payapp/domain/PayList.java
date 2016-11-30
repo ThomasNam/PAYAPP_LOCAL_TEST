@@ -41,8 +41,26 @@ public class PayList extends PayListBase
 
 	private Date regDate;
 
+	private Date payDate;
+
+	private Date cancelDate;
+
 	public String getStateStr ()
 	{
-		return "뭐하는 상태임";
+		if (getOstate () == 0)
+			return "결제요청";
+		else if (getOstate () == 4)
+			return "결제완료";
+		else if (getOstate () == 8)
+			return "요청취소";
+		else if (getOstate () == 9)
+			return "승인취소";
+		else
+			return "알수 없음";
+	}
+
+	public String getPayTypeStr ()
+	{
+		return "결제수단";
 	}
 }
