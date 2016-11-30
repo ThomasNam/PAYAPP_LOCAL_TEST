@@ -26,7 +26,6 @@ import kr.co.udid.payapp.lt.lib.SecureRandomUtil;
 import kr.co.udid.payapp.lt.lib.StrLib;
 import kr.co.udid.payapp.lt.lib.Util;
 import kr.co.udid.payapp.lt.model.common.CommonSeqSv;
-import kr.co.udid.payapp.lt.model.common.types.CommonSeqType;
 import kr.co.udid.payapp.lt.model.payapp.PayappProperty;
 import kr.co.udid.payapp.lt.model.payapp.PayappSv;
 import kr.co.udid.payapp.lt.model.payapp.data.PayappRequestResult;
@@ -67,7 +66,9 @@ public class PayappSvImp implements PayappSv
 
 		payList.setUrl (url);
 
-		int mulNo = commonSeqSv.createNumber (CommonSeqType.MUL_NO);
+		// int mulNo = commonSeqSv.createNumber (CommonSeqType.MUL_NO);
+
+		long mulNo = new Date ().getTime ();
 
 		payList.setMulNo (String.valueOf (mulNo));
 
