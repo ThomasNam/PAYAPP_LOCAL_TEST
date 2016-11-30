@@ -123,6 +123,23 @@ public class PayappSvImp implements PayappSv
 	}
 
 	@Override
+	public boolean mobileAccountComplete (long no)
+	{
+		PayList payList = payListRepository.findOne (no);
+
+		if (payList == null)
+			return false;
+
+		payList.setPayType ((short) 2);
+		payList.setPayDate (new Date ());
+		payList.setOstate (4);
+
+		feedbackWork (payList);
+
+		return true;
+	}
+
+	@Override
 	public boolean cancelAccount (long no)
 	{
 		PayList payList = payListRepository.findOne (no);

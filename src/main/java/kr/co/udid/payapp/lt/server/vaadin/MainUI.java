@@ -47,7 +47,9 @@ public class MainUI extends UI
 
 	private Button refreshBtn = new MButton (FontAwesome.REFRESH, "새로고침", this::onRefresh);
 
-	private Button cardCompleteBtn = new MButton (FontAwesome.FORWARD, "카드결제완료", this::onCardPayComplete);
+	private Button cardCompleteBtn = new MButton (FontAwesome.CREDIT_CARD, "카드결제완료", this::onCardPayComplete);
+
+	private Button mobileCompleteBtn = new MButton (FontAwesome.MOBILE, "휴대폰결제완료", this::onMobilePayComplete);
 
 	private Button cancelBtn = new MButton (FontAwesome.REMOVE, "결제취소", this::onCancelPay);
 
@@ -71,7 +73,7 @@ public class MainUI extends UI
 		setContent(
 			new MVerticalLayout (
 				// aboutBox,
-				new MHorizontalLayout (refreshBtn, cardCompleteBtn, cancelBtn),
+				new MHorizontalLayout (refreshBtn, cardCompleteBtn, mobileCompleteBtn, cancelBtn),
 				table,
 				pagination
 			).expand(table)
@@ -93,7 +95,7 @@ public class MainUI extends UI
 			}
 			else if (table.getValue ().getOstate () == 4)
 			{
-				cardCompleteBtn.setEnabled (false);
+				cardCompleteBtn.setEnabled (true);
 				cancelBtn.setEnabled (true);
 			}
 		}
@@ -130,6 +132,18 @@ public class MainUI extends UI
 	private void onCardPayComplete (Button.ClickEvent clickEvent)
 	{
 		if (payappSv.cardAccountComplete (table.getValue ().getNo ()))
+		{
+			Notification.show ("결제 완료", "결제 완료 처리를 하였습니다.", Notification.Type.TRAY_NOTIFICATION);
+
+			listRefresh ();
+		}
+		else
+			Notification.show ("실패", "결제 완료 처리를 실패하였습니다.", Notification.Type.ERROR_MESSAGE);
+	}
+
+	private void onMobilePayComplete (Button.ClickEvent clickEvent)
+	{
+		if (payappSv.mobileAccountComplete (table.getValue ().getNo ()))
 		{
 			Notification.show ("결제 완료", "결제 완료 처리를 하였습니다.", Notification.Type.TRAY_NOTIFICATION);
 

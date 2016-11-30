@@ -31,6 +31,13 @@ public interface PayappSv
 	boolean cardAccountComplete (long no);
 
 	/**
+	 * 핸드폰 결제 완료
+	 * @param no
+	 * @return
+	 */
+	boolean mobileAccountComplete (long no);
+
+	/**
 	 * 결제 취소
 	 * @param no
 	 * @return
