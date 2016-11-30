@@ -21,6 +21,8 @@ public interface PayappSv
 
 	Page<PayList> findAll (Pageable page);
 
+	PayList findUrl (String url);
+
 	/**
 	 * 카드 결제 완료
 	 * @param no

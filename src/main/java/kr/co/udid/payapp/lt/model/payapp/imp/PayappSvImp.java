@@ -226,4 +226,10 @@ public class PayappSvImp implements PayappSv
 			}
 		}
 	}
+
+	@Override
+	public PayList findUrl (String url)
+	{
+		return payListRepository.findByUrl (url);
+	}
 }
