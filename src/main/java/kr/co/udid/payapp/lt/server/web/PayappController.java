@@ -32,9 +32,14 @@ public class PayappController
 	{
 		try
 		{
+			// 결제 요청
 			if ("payrequest".equals (cmd))
 			{
 				return payRequest (request);
+			}
+			else if ("paycancel".equals (cmd))
+			{
+
 			}
 
 		}
