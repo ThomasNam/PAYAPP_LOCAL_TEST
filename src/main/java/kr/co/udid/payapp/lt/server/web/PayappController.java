@@ -71,7 +71,7 @@ public class PayappController
 		PayappRequestResult result = payappSv.request (base);
 
 		return String.format ("state=%s&errorMessage=%s&mul_no=%s&payurl=%s",
-			result.getState (), URLEncoder.encode (result.getErrorMessage (), "UTF-8"), result.getMulNo (), result.getPayUrl ());
+			result.getState (), URLEncoder.encode (result.getErrorMessage (), "UTF-8"), result.getMulNo (), URLEncoder.encode (result.getPayUrl (), "UTF-8"));
 	}
 
 

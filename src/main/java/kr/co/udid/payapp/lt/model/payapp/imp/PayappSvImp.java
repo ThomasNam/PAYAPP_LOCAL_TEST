@@ -59,7 +59,7 @@ public class PayappSvImp implements PayappSv
 		result.setErrorMessage ("");
 		result.setMulNo (payList.getMulNo ());
 
-		String payUrl = payappProperty + "p/" + url;
+		String payUrl = payappProperty.getUrl () + "p/" + url;
 
 		result.setPayUrl (payUrl);
 

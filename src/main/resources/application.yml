@@ -20,7 +20,7 @@ spring:
         strategy: org.hibernate.cfg.EJB3NamingStrategy
 
   datasource:
-    url: jdbc:h2:file:pl
+    url: jdbc:h2:file:~/pl
 
   http:
     multipart:
