@@ -1,25 +1,145 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+
 <head>
-	<meta charset="UTF-8" />
-	<title>PAY</title>
+    <meta charset="UTF-8"/>
+    <title>PAY</title>
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"/>
 
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous" />
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css"
+          integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"/>
 
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>-->
+    <script src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
 
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+            crossorigin="anonymous"></script>
 </head>
+
+<script type="text/javascript">
+
+    $(document).ready(function() {
+
+        setBtn($("[name=ostate]").val());
+    });
+
+    function setBtn(ostate){
+
+        if(ostate == 4){
+            $("#cardBtn").hide();
+            $("#phoneBtn").hide();
+            $("#cancelBtn").show();
+        } else {
+            $("#cardBtn").show();
+            $("#phoneBtn").show();
+            $("#cancelBtn").hide();
+        }
+    }
+
+    function formSubmit(type) {
+
+        var url;
+        if (type == "card")            url = "/oapi/cardAccountComplete.html";
+        else if (type == "phone")      url = "/oapi/mobileAccountComplete.html";
+        else                           url = "/oapi/cancelAccount.html";
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: $("#payappForm").serialize(),
+            dataType: "JSON",
+            success: function (data) {
+
+                if (data.refresh){
+
+                    setBtn(data.ostate);
+                } else {
+                    alert("적용실패!");
+                }
+            },
+            error: function (xhr, status, error) {
+                alert("error :: " + error);
+            }
+        });
+    }
+
+</script>
+
+<style>
+    .subTitle {
+        width: 30%;
+    }
+
+    .contents {
+        width: 70%;
+    }
+</style>
+
 <body>
 
-	<H1>페이앱 로컬 테스트</H1>
+<div class="container" style="width: 500px; margin-top: 100px;">
 
-	<a th:href="${pay.returnUrl}" th:if="${pay.returnUrl}" class = "btn btn-default">돌아가기</a>
+    <form class="form-horizontal" method="post" role="form" id="payappForm">
+        <div class="panel panel-danger">
+            <div class="panel-heading ">페이앱 로컬 테스트</div>
+
+            <input type="hidden" class="form-control" name="no" th:value="${pay.no}"/>
+            <input type="hidden" class="form-control" name="url" th:value="${url}"/>
+            <input type="hidden" class="form-control" name="ostate" th:value="${pay.ostate}"/>
+
+
+            <table class="table table-striped">
+                <tbody>
+                <tr>
+                    <th class="subTitle">판매자</th>
+                    <td class="contents" th:text="${pay.sellerUserID}">판매자</td>
+                </tr>
+                <tr>
+                    <th class="subTitle">연락처</th>
+                    <td class="contents" th:text="${pay.memPhone}">연락처</td>
+                </tr>
+                <tr>
+                    <th class="subTitle">결제금액</th>
+                    <td class="contents" th:text="${pay.goodPrice}">결제금액</td>
+                </tr>
+                <tr>
+                    <th class="subTitle">상품명</th>
+                    <td class="contents" th:text="${pay.goodName}">상품</td>
+                </tr>
+                <tr>
+                    <th class="subTitle">판매자메모</th>
+                    <td class="contents" th:text="${pay.memo}">판매자메모</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div class="panel-footer" style="background-color: white">
+
+                <button id="cardBtn" type="button" class="btn btn-info" onclick="formSubmit('card');" >
+                    <span class="glyphicon glyphicon-credit-card"></span> 카드결제완료
+                </button>
+
+                <button id="phoneBtn" type="button" class="btn btn-info" onclick="formSubmit('phone');" >
+                    <span class="glyphicon glyphicon-phone"></span> 휴대폰결제완료
+                </button>
+
+                <button id="cancelBtn" type="button" class="btn btn-danger" onclick="formSubmit('cancel');" >
+                    <span class="glyphicon glyphicon-remove"></span> 결제취소
+                </button>
+
+            </div>
+        </div>
+    </form>
+</div>
+
 
 </body>
 </html>

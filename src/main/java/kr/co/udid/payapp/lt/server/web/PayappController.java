@@ -2,6 +2,7 @@ package kr.co.udid.payapp.lt.server.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.UnsupportedEncodingException;
@@ -78,6 +79,5 @@ public class PayappController
 		return String.format ("state=%s&errorMessage=%s&mul_no=%s&payurl=%s",
 			result.getState (), URLEncoder.encode (result.getErrorMessage (), "UTF-8"), result.getMulNo (), URLEncoder.encode (result.getPayUrl (), "UTF-8"));
 	}
-
 
 }
