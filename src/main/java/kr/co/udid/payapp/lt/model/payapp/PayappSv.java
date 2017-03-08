@@ -23,6 +23,8 @@ public interface PayappSv
 
 	PayList findUrl (String url);
 
+	PayList findMul (String mulNo);
+
 	/**
 	 * 카드 결제 완료
 	 * @param no

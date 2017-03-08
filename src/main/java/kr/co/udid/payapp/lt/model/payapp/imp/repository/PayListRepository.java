@@ -10,4 +10,6 @@ import kr.co.udid.payapp.lt.model.payapp.domain.PayList;
 public interface PayListRepository extends JpaRepository<PayList, Long>
 {
 	PayList findByUrl (String url);
+
+	PayList findByMulNo (String mulNo);
 }

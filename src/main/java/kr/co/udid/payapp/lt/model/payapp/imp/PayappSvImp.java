@@ -7,7 +7,6 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
-import org.springframework.context.annotation.Bean;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -67,8 +66,6 @@ public class PayappSvImp implements PayappSv
 		String url = makeUrl ();
 
 		payList.setUrl (url);
-
-		// int mulNo = commonSeqSv.createNumber (CommonSeqType.MUL_NO);
 
 		long mulNo = new Date ().getTime ();
 
@@ -251,5 +248,11 @@ public class PayappSvImp implements PayappSv
 	public PayList findUrl (String url)
 	{
 		return payListRepository.findByUrl (url);
+	}
+
+	@Override
+	public PayList findMul (String mulNo)
+	{
+		return payListRepository.findByMulNo (mulNo);
 	}
 }
