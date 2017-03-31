@@ -210,7 +210,7 @@ public class PayappSvImp implements PayappSv
 
 			urlParameters.add (new BasicNameValuePair ("reqdate", df.format (payList.getRegDate ())));
 
-			if (payList.getPayType () == 4)
+			if (payList.getPayType () == 4 || payList.getPayType () == 1)
 			{
 				urlParameters.add (new BasicNameValuePair ("csturl", payappProperty.getUrl () + "c/" + payList.getUrl ()));
 				urlParameters.add (new BasicNameValuePair ("card_name", payList.getPayInfo1 ()));
