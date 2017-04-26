@@ -25,7 +25,6 @@ import javax.transaction.Transactional;
 import kr.co.udid.payapp.lt.lib.SecureRandomUtil;
 import kr.co.udid.payapp.lt.lib.StrLib;
 import kr.co.udid.payapp.lt.lib.Util;
-import kr.co.udid.payapp.lt.model.common.CommonSeqSv;
 import kr.co.udid.payapp.lt.model.payapp.PayappProperty;
 import kr.co.udid.payapp.lt.model.payapp.PayappSv;
 import kr.co.udid.payapp.lt.model.payapp.data.PayappRequestResult;
@@ -42,12 +41,9 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class PayappSvImp implements PayappSv
 {
-
 	final private PayListRepository payListRepository;
 
 	final private PayappProperty payappProperty;
-
-	final private CommonSeqSv commonSeqSv;
 
 	@Override
 	public PayappRequestResult request (PayListBase payListBase)
@@ -226,7 +222,7 @@ public class PayappSvImp implements PayappSv
 				BufferedReader rd = new BufferedReader (new InputStreamReader (response.getEntity ().getContent ()));
 
 				// 결과를 받아온다.
-				String responseStr = null;
+				String responseStr;
 
 				StringBuilder result = new StringBuilder ();
 
@@ -239,7 +235,7 @@ public class PayappSvImp implements PayappSv
 			}
 			catch (Exception ignored)
 			{
-
+				ignored.printStackTrace ();
 			}
 		}
 	}
