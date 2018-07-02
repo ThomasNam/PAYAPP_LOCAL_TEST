@@ -201,6 +201,7 @@ public class PayappSvImp implements PayappSv
 			urlParameters.add (new BasicNameValuePair ("payurl", payappProperty.getUrl () + "p/" + payList.getUrl ()));
 			urlParameters.add (new BasicNameValuePair ("feedbacktype", "0"));
 			urlParameters.add (new BasicNameValuePair ("pay_addr", ""));
+			urlParameters.add (new BasicNameValuePair ("payauthcode", "364910"));
 
 			DateFormat df = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
@@ -211,6 +212,7 @@ public class PayappSvImp implements PayappSv
 				urlParameters.add (new BasicNameValuePair ("csturl", payappProperty.getUrl () + "c/" + payList.getUrl ()));
 				urlParameters.add (new BasicNameValuePair ("card_name", payList.getPayInfo1 ()));
 				urlParameters.add (new BasicNameValuePair ("pay_date", df.format (payList.getPayDate ())));
+				urlParameters.add (new BasicNameValuePair ("noinf", String.valueOf ("0")));
 			}
 
 			post.setEntity (new UrlEncodedFormEntity (urlParameters, Charset.forName ("UTF-8")));
