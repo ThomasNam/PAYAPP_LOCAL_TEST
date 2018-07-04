@@ -1,15 +1,17 @@
 package kr.co.udid.payapp.lt.server.web;
 
 import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import kr.co.udid.payapp.lt.model.payapp.PayappSv;
 import kr.co.udid.payapp.lt.model.payapp.domain.PayList;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.servlet.ModelAndView;
 
 /**
  * Created by RED on 2016-11-30.
@@ -19,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class PayappPageController
 {
 	private final PayappSv payappSv;
+
 
 	@GetMapping ("/p/{url}")
 	public String pay (Model mo, @PathVariable ("url") String url)
@@ -102,4 +105,14 @@ public class PayappPageController
 	}
 
 
+	@GetMapping ("/c/{url}")
+	public String cst (Model mo, @PathVariable ("url") String url)
+	{
+		PayList pay = payappSv.findUrl (url);
+
+		mo.addAttribute ("pay", pay);
+		mo.addAttribute ("url", url);
+
+		return "cst";
+	}
 }
