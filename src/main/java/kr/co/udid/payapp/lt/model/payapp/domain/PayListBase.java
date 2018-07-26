@@ -51,4 +51,16 @@ public class PayListBase
 	private String reqAddr;
 
 	private String returnUrl;
+
+	private String vccode;
+
+	/**
+	 * 통화 모드
+	 */
+	private String reqmode;
+
+	/**
+	 * 통화
+	 */
+	private String currency;
 }

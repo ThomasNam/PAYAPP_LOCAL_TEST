@@ -9,6 +9,7 @@ import java.net.URLEncoder;
 
 import javax.servlet.http.HttpServletRequest;
 
+import kr.co.udid.payapp.lt.lib.StrLib;
 import kr.co.udid.payapp.lt.model.payapp.PayappSv;
 import kr.co.udid.payapp.lt.model.payapp.data.PayappRequestResult;
 import kr.co.udid.payapp.lt.model.payapp.domain.PayList;
@@ -60,8 +61,10 @@ public class PayappController
 		String price = request.getParameter ("price");
 		String memo = request.getParameter ("memo");
 		String reqaddr = request.getParameter ("reqaddr");
+		String vccode = request.getParameter ("vccode");
 		String returnurl = request.getParameter ("returnurl");
 		String openpaytype = request.getParameter ("openpaytype");
+		String reqmode = request.getParameter ("reqmode");
 
 		String feedbackurl = request.getParameter ("feedbackurl");
 		String var1 = request.getParameter ("var1");
@@ -70,9 +73,15 @@ public class PayappController
 
 		PayListBase base = new PayListBase ();
 
+		if (StrLib.isEmptyStr (reqmode))
+			reqmode = "krw";
+
 		base.setFeedbackUrl (feedbackurl).setGoodName (goodname).setSellerUserID (userid).setMemPhone (recvphone);
 		base.setGoodPrice (Integer.parseInt (price)).setMemo (memo).setReqAddr (reqaddr).setReturnUrl (returnurl);
 		base.setVar1 (var1).setVar2 (var2).setSendSms (smsuse).setOpenpaytype (openpaytype);
+		base.setVccode (vccode).setReqmode (reqmode).setCurrency (reqmode);
+
+
 
 		PayappRequestResult result = payappSv.request (base);
 

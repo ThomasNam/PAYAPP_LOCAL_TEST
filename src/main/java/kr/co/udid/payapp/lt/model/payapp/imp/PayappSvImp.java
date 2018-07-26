@@ -106,7 +106,11 @@ public class PayappSvImp implements PayappSv
 		if (payList == null)
 			return false;
 
-		payList.setPayType ((short) 1);
+		if ("usd".equals (payList.getReqmode ()))
+			payList.setPayType ((short) 3);
+		else
+			payList.setPayType ((short) 1);
+
 		payList.setPayInfo1 ("테스트카드");
 		payList.setPayInfo2 ("36061122****6626");
 		payList.setPayDate (new Date ());
@@ -191,7 +195,10 @@ public class PayappSvImp implements PayappSv
 			urlParameters.add (new BasicNameValuePair ("pay_type", String.valueOf (payList.getPayType ())));
 			urlParameters.add (new BasicNameValuePair ("pay_state", String.valueOf (payList.getOstate ())));
 			urlParameters.add (new BasicNameValuePair ("pay_memo", ""));
-			urlParameters.add (new BasicNameValuePair ("currency", "krw"));
+			urlParameters.add (new BasicNameValuePair ("currency", payList.getCurrency ()));
+			urlParameters.add (new BasicNameValuePair ("vccode", payList.getVccode ()));
+
+
 
 			urlParameters.add (new BasicNameValuePair ("memo", payList.getMemo ()));
 
@@ -206,14 +213,18 @@ public class PayappSvImp implements PayappSv
 			DateFormat df = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
 			urlParameters.add (new BasicNameValuePair ("reqdate", df.format (payList.getRegDate ())));
+			urlParameters.add (new BasicNameValuePair ("pay_date", df.format (payList.getPayDate ())));
 
-			if (payList.getPayType () == 4 || payList.getPayType () == 1)
+			if (payList.getPayType () == 4 || payList.getPayType () == 1 || payList.getPayType () == 3)
 			{
 				urlParameters.add (new BasicNameValuePair ("csturl", payappProperty.getUrl () + "c/" + payList.getUrl ()));
 				urlParameters.add (new BasicNameValuePair ("card_name", payList.getPayInfo1 ()));
-				urlParameters.add (new BasicNameValuePair ("pay_date", df.format (payList.getPayDate ())));
 				urlParameters.add (new BasicNameValuePair ("noinf", String.valueOf ("0")));
+
+				if (payList.getReqmode ().equals ("usd"))
+					urlParameters.add (new BasicNameValuePair ("score", String.valueOf ("10")));
 			}
+
 
 			post.setEntity (new UrlEncodedFormEntity (urlParameters, Charset.forName ("UTF-8")));
 
