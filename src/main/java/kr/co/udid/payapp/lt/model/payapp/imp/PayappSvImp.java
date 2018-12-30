@@ -67,13 +67,14 @@ public class PayappSvImp implements PayappSv
 
 		payList.setMulNo (String.valueOf (mulNo));
 
-		payListRepository.save (payList);
+		PayList savedPayList = payListRepository.save (payList);
 
 		PayappRequestResult result = new PayappRequestResult ();
 
 		result.setState ("1");
 		result.setErrorMessage ("");
 		result.setMulNo (payList.getMulNo ());
+		result.setPayNo (savedPayList.getNo ());
 
 		String payUrl = payappProperty.getUrl () + "p/" + url;
 

@@ -26,6 +26,58 @@ public class PayappController
 {
 	private final PayappSv payappSv;
 
+	@PostMapping("/api/appCardPay.html")
+	public String appCardPay (HttpServletRequest request) throws UnsupportedEncodingException
+	{
+		String userid = request.getParameter ("userid");
+		String goodname = request.getParameter ("goodname");
+		String recvphone = request.getParameter ("recvphone");
+		String price = request.getParameter ("price");
+
+		String payintype = request.getParameter ("payintype");
+		String cardinst = request.getParameter ("cardinst");
+		String authpay = request.getParameter ("authpay");
+
+		String cardpwd = request.getParameter ("cardpwd");
+		String authnum = request.getParameter ("authnum");
+		String cardno = request.getParameter ("cardno");
+		String expdate = request.getParameter ("expdate");
+
+		String var1 = "";
+		String var2 = "";
+		String memo = "";
+
+		String smsuse = "n";
+		String returnurl = "";
+		String feedbackurl = "";
+
+		String cardauthnum = "123456";
+
+		PayListBase base = new PayListBase ();
+
+		base.setFeedbackUrl (feedbackurl).setGoodName (goodname).setSellerUserID (userid).setMemPhone (recvphone);
+		base.setGoodPrice (Integer.parseInt (price)).setMemo (memo).setReqAddr ("n").setReturnUrl (returnurl);
+		base.setVar1 (var1).setVar2 (var2).setSendSms (smsuse);
+		base.setCurrency ("krw");
+
+		String ccnumb = "1234-****-****-1234";
+		String ccname = "국민카드";
+
+		PayappRequestResult result = payappSv.request (base);
+
+		payappSv.cardAccountComplete (result.getPayNo ());
+
+		return String.format ("state=%s&errorMessage=%s&mul_no=%s&goodname=%s&cardauthnum=%s&Amt=%s&ccnumb=%s&ccname=%s",
+				result.getState (), URLEncoder.encode (result.getErrorMessage (), "UTF-8"), result.getMulNo (),
+				URLEncoder.encode (goodname, "UTF-8"),
+				URLEncoder.encode (cardauthnum, "UTF-8"),
+				URLEncoder.encode (price, "UTF-8"),
+				URLEncoder.encode (ccnumb, "UTF-8"),
+				URLEncoder.encode (ccname, "UTF-8")
+		);
+	}
+
+
 	@PostMapping("/oapi/apiLoad.html")
 	public String payLoad (
 		String cmd

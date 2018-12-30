@@ -13,4 +13,6 @@ public class PayappRequestResult extends PayappBaseResult
 	private String mulNo;
 
 	private String payUrl;
+
+	private long payNo;
 }
