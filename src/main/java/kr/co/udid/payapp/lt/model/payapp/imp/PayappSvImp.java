@@ -211,6 +211,12 @@ public class PayappSvImp implements PayappSv
 			urlParameters.add (new BasicNameValuePair ("pay_addr", ""));
 			urlParameters.add (new BasicNameValuePair ("payauthcode", "364910"));
 
+			String ccnumb = "1234-****-****-1234";
+			String ccname = "국민카드";
+
+			urlParameters.add (new BasicNameValuePair ("ccnumb", ccnumb));
+			urlParameters.add (new BasicNameValuePair ("ccname", ccname));
+
 			DateFormat df = new SimpleDateFormat ("yyyy-MM-dd HH:mm:ss");
 
 			urlParameters.add (new BasicNameValuePair ("reqdate", df.format (payList.getRegDate ())));
@@ -220,10 +226,10 @@ public class PayappSvImp implements PayappSv
 			{
 				urlParameters.add (new BasicNameValuePair ("csturl", payappProperty.getUrl () + "c/" + payList.getUrl ()));
 				urlParameters.add (new BasicNameValuePair ("card_name", payList.getPayInfo1 ()));
-				urlParameters.add (new BasicNameValuePair ("noinf", String.valueOf ("0")));
+				urlParameters.add (new BasicNameValuePair ("noinf", "0"));
 
 				if (payList.getReqmode ().equals ("usd"))
-					urlParameters.add (new BasicNameValuePair ("score", String.valueOf ("10")));
+					urlParameters.add (new BasicNameValuePair ("score", "10"));
 			}
 
 
@@ -247,9 +253,9 @@ public class PayappSvImp implements PayappSv
 
 				rd.close ();
 			}
-			catch (Exception ignored)
+			catch (Exception e)
 			{
-				ignored.printStackTrace ();
+				e.printStackTrace ();
 			}
 		}
 	}
