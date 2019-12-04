@@ -8,11 +8,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
  * Created by Thomas on 2016. 11. 29..
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Accessors(chain = true)
