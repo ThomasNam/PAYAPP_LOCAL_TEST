@@ -1,9 +1,9 @@
 buildscript {
     repositories {
         jcenter()
-        maven { url "http://repo.spring.io/snapshot" }
-        maven { url "http://repo.spring.io/milestone" }
-        maven { url 'http://repo.spring.io/plugins-release' }
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+        maven { url 'https://repo.spring.io/plugins-release' }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.1.RELEASE")
@@ -32,11 +32,11 @@ war {
 
 repositories {
     jcenter()
-    maven { url "http://repo.spring.io/snapshot" }
-    maven { url "http://repo.spring.io/milestone" }
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
     maven { url "https://repository.jboss.org/nexus/content/repositories/releases" }
-    maven { url "http://vaadin.com/nexus/content/repositories/vaadin-addons/" }
-    maven { url "http://oss.sonatype.org/content/repositories/vaadin-snapshots/" }
+    maven { url "https://vaadin.com/nexus/content/repositories/vaadin-addons/" }
+    maven { url "https://oss.sonatype.org/content/repositories/vaadin-snapshots/" }
     mavenCentral()
 }
 
